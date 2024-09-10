@@ -1,5 +1,7 @@
 package com.adepuu.exercises;
 
+import com.adepuu.exception.WrongFormatException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
