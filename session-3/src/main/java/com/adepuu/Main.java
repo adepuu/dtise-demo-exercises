@@ -17,11 +17,11 @@ public class Main {
       // PrimeChecker
       Boolean isPrime17 = PrimeChecker.isPrime(17.0);
       System.out.println("PrimeChecker (17): " + isPrime17);
-      assert isPrime17 == true : "PrimeChecker assertion failed for 17";
+      assert isPrime17 : "PrimeChecker assertion failed for 17";
 
       Boolean isPrime4 = PrimeChecker.isPrime(4.0);
       System.out.println("PrimeChecker (4): " + isPrime4);
-      assert isPrime4 == false : "PrimeChecker assertion failed for 4";
+      assert !isPrime4 : "PrimeChecker assertion failed for 4";
 
       // ArrayOperations (largest)
       Double largest = ArrayOperations.findLargest(List.of(3.0, 7.0, 2.0, 8.0, 1.0));
