@@ -8,10 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="session-1" />
         <module name="session-2" />
-        <module name="session-7" />
         <module name="session-5" />
         <module name="session-6" />
         <module name="session-3" />
+        <module name="session-4" />
+        <module name="session-7" />
       </profile>
     </annotationProcessing>
   </component>
