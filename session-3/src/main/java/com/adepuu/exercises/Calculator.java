@@ -13,7 +13,7 @@ public class Calculator {
    * @throws IllegalArgumentException if the input is invalid
    */
   public static Double calculate(String input) {
-    String[] parts = input.split(" ");
+    String[] parts = input.split(" "); // [5, +, 3]
     if (parts.length != 3) {
       throw new IllegalArgumentException("Invalid input format. Use 'number operator number'");
     }
