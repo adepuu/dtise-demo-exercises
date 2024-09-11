@@ -3,6 +3,7 @@ package com.adepuu.examples;
 import com.adepuu.examples.exceptions.BankAccountExistException;
 import com.adepuu.examples.exceptions.BankAccountNotFoundException;
 import com.adepuu.examples.exceptions.NegativeAmountException;
+import com.adepuu.examples.impl.BankAccountImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class Bank {
     if (account.containsKey(accountNumber)) {
       throw new BankAccountExistException();
     }
-    account.put(accountNumber, new BankAccount(accountNumber, initialBalance));
+    account.put(accountNumber, new BankAccountImpl(accountNumber, initialBalance));
   }
 
   public void deposit(String accountNumber, double amount) {
