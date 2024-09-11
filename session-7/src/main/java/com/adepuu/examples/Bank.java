@@ -10,7 +10,9 @@ import java.util.Map;
 public class Bank {
   private Map<String, BankAccount> account;
 
+  //  Constructor
   public Bank() {
+    System.out.println("Creating a new bank with empty bank account");
     account = new HashMap<String, BankAccount>();
   }
 

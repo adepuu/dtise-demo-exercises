@@ -9,7 +9,9 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
 //    FileReader.parseContents("D:\\projects\\dtise-demo-exercises\\session-7\\src\\main\\resources\\testfile.txt");
+//    Make a new bank object based on a Bank class
     Bank bank = new Bank();
+
     Scanner scanner = new Scanner(System.in);
 
     bank.createAccount("1234567890", 100000);
