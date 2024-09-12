@@ -1,33 +1,37 @@
 package com.adepuu.exercises;
 
+import com.adepuu.exercises.utils.Input;
+
 import java.util.*;
 
+/**
+ * Manages the ticketing system, including events and ticket bookings.
+ */
 public class TicketingSystem {
   private final List<Event> events;
-  private final Scanner scanner;
 
+  /**
+   * Constructs a new TicketingSystem.
+   */
   public TicketingSystem() {
     events = new ArrayList<>();
-    scanner = new Scanner(System.in);
   }
 
+  /**
+   * Creates a new event with multiple tiers.
+   */
   public void createEvent() {
-    System.out.print("Enter event name: ");
-    String eventName = scanner.nextLine();
+    String eventName = Input.getStringInput("Enter event name: ");
 
     Map<String, Integer> tierQuotas = new HashMap<>();
     Map<String, Double> tierPrices = new HashMap<>();
 
     while (true) {
-      System.out.print("Enter tier name (or 'done' to finish): ");
-      String tier = scanner.nextLine();
+      String tier = Input.getStringInput("Enter tier name (or 'done' to finish): ");
       if (tier.equalsIgnoreCase("done")) break;
 
-      System.out.print("Enter ticket quota for " + tier + ": ");
-      int quota = scanner.nextInt();
-      System.out.print("Enter ticket price for " + tier + ": ");
-      double price = scanner.nextDouble();
-      scanner.nextLine(); // Consume newline
+      int quota = Input.getIntInput("Enter ticket quota for " + tier + ": ");
+      double price = Input.getDoubleInput("Enter ticket price for " + tier + ": ");
 
       tierQuotas.put(tier, quota);
       tierPrices.put(tier, price);
@@ -38,6 +42,9 @@ public class TicketingSystem {
     System.out.println("Event created successfully.");
   }
 
+  /**
+   * Handles the ticket booking process.
+   */
   public void bookTicket() {
     if (events.isEmpty()) {
       System.out.println("No events available.");
@@ -49,9 +56,7 @@ public class TicketingSystem {
       System.out.println((i + 1) + ". " + events.get(i).getName());
     }
 
-    System.out.print("Select an event (enter number): ");
-    int eventChoice = scanner.nextInt();
-    scanner.nextLine(); // Consume newline
+    int eventChoice = Input.getIntInput("Select an event (enter number): ");
 
     if (eventChoice < 1 || eventChoice > events.size()) {
       System.out.println("Invalid event selection.");
@@ -61,8 +66,7 @@ public class TicketingSystem {
     Event selectedEvent = events.get(eventChoice - 1);
     selectedEvent.printEventDetails();
 
-    System.out.print("Enter the tier you want to book: ");
-    String selectedTier = scanner.nextLine();
+    String selectedTier = Input.getStringInput("Enter the tier you want to book: ");
 
     if (!selectedEvent.getTicketsByTier().containsKey(selectedTier)) {
       System.out.println("Invalid tier selection.");
@@ -74,19 +78,17 @@ public class TicketingSystem {
       return;
     }
 
-    System.out.print("Enter your name: ");
-    String userName = scanner.nextLine();
+    String userName = Input.getStringInput("Enter your name: ");
 
     Ticket ticketToBook = selectedEvent.getTicketsByTier().get(selectedTier).stream()
-            .filter(ticket -> !ticket.isBooked())
+            .filter(Ticket::isAvailable)
             .findFirst()
             .orElse(null);
 
     if (ticketToBook != null) {
       System.out.println("\nTicket Details:");
       ticketToBook.printTicketDetails();
-      System.out.print("Confirm booking? (yes/no): ");
-      String confirmation = scanner.nextLine();
+      String confirmation = Input.getStringInput("Confirm booking? (yes/no): ");
 
       if (confirmation.equalsIgnoreCase("yes")) {
         if (ticketToBook.book(userName)) {
@@ -103,6 +105,9 @@ public class TicketingSystem {
     }
   }
 
+  /**
+   * Displays details of all events.
+   */
   public void displayAllEvents() {
     if (events.isEmpty()) {
       System.out.println("No events available.");
@@ -114,6 +119,9 @@ public class TicketingSystem {
     }
   }
 
+  /**
+   * Displays tickets for a selected event.
+   */
   public void displayEventTickets() {
     if (events.isEmpty()) {
       System.out.println("No events available.");
@@ -126,8 +134,7 @@ public class TicketingSystem {
     }
 
     System.out.print("Enter your choice: ");
-    int eventChoice = scanner.nextInt();
-    scanner.nextLine(); // Consume newline
+    int eventChoice = Input.getIntInput("");
 
     if (eventChoice < 1 || eventChoice > events.size()) {
       System.out.println("Invalid event selection.");
@@ -145,6 +152,9 @@ public class TicketingSystem {
     }
   }
 
+  /**
+   * Runs the ticketing system, providing a menu for user interactions.
+   */
   public void run() {
     while (true) {
       System.out.println("\n1. Create Event");
@@ -154,8 +164,7 @@ public class TicketingSystem {
       System.out.println("5. Exit");
       System.out.print("Choose an option: ");
 
-      int choice = scanner.nextInt();
-      scanner.nextLine(); // Consume newline
+      int choice = Input.getIntInput("");
 
       switch (choice) {
         case 1:

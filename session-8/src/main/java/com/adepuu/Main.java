@@ -17,6 +17,11 @@ public class Main {
 //    System.out.println(noobCharacter.toString());
 //    System.out.println(emptyCharacter.toString());
 
+    /**
+     * The entry point of the ticketing system application.
+     *
+     * @param args Command line arguments (not used).
+     */
     TicketingSystem system = new TicketingSystem();
     system.run();
   }
