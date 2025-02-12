@@ -24,7 +24,7 @@ public class BankAccountImpl implements BankAccount {
   }
   
   @Override
-  public void deposit(double amount) {
+  public void deposit(double amount) throws NegativeAmountException {
     if (amount < 0) {
       throw new NegativeAmountException("Deposit amount cannot be negative");
     }
@@ -32,7 +32,7 @@ public class BankAccountImpl implements BankAccount {
   }
 
   @Override
-  public void withdraw(double amount) {
+  public void withdraw(double amount) throws InsufficientFundException, NegativeAmountException {
     if (amount < 0) {
       throw new NegativeAmountException("Deposit amount cannot be negative");
     }

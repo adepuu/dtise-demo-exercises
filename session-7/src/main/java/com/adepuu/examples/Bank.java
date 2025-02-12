@@ -2,6 +2,7 @@ package com.adepuu.examples;
 
 import com.adepuu.examples.exceptions.BankAccountExistException;
 import com.adepuu.examples.exceptions.BankAccountNotFoundException;
+import com.adepuu.examples.exceptions.InsufficientFundException;
 import com.adepuu.examples.exceptions.NegativeAmountException;
 import com.adepuu.examples.impl.BankAccountImpl;
 
@@ -17,9 +18,9 @@ public class Bank {
     account = new HashMap<String, BankAccount>();
   }
 
-  public void createAccount(String accountNumber, double initialBalance) {
-    if (initialBalance < 0) {
-      throw new NegativeAmountException("Initial balance cannot be negative");
+  public void createAccount(String accountNumber, double initialBalance) throws NegativeAmountException {
+    if (initialBalance <= 0) {
+      throw new NegativeAmountException("Initial balance cannot be empty");
     }
     if (account.containsKey(accountNumber)) {
       throw new BankAccountExistException();
@@ -27,7 +28,7 @@ public class Bank {
     account.put(accountNumber, new BankAccountImpl(accountNumber, initialBalance));
   }
 
-  public void deposit(String accountNumber, double amount) {
+  public void deposit(String accountNumber, double amount) throws NegativeAmountException {
     if (!account.containsKey(accountNumber)) {
       throw new BankAccountNotFoundException();
     }
@@ -36,7 +37,7 @@ public class Bank {
     currentAccount.deposit(amount);
   }
 
-  public void withdraw(String accountNumber, double amount) {
+  public void withdraw(String accountNumber, double amount) throws InsufficientFundException, NegativeAmountException {
     if (!account.containsKey(accountNumber)) {
       throw new BankAccountNotFoundException();
     }

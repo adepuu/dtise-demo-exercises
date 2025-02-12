@@ -1,7 +1,6 @@
 package com.adepuu.exercises;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,6 +20,9 @@ public class SalesReport {
   private static final String FILE_PATH = "D:\\projects\\dtise-demo-exercises\\session-7\\src\\main\\resources\\product_sales_data.csv";
   private static final String DELIMITER = ",";
   private static final String DATA_HEADER = "Product Name,Total Sold,Item Price";
+  private static final int PRODUCT_NAME_COL = 0;
+  private static final int SOLD_COL = 1;
+  private static final int PRICE_COL = 2;
 
   public static List<Product> readProductFromCsv() {
     List<Product> products = new ArrayList<>();
@@ -31,9 +33,9 @@ public class SalesReport {
         throw new IllegalArgumentException("Invalid CSV file format");
       }
 
-      String line;
-      while ((line = br.readLine()) != null) {
-        String[] data = line.split(DELIMITER);
+      String row;
+      while ((row = br.readLine()) != null) {
+        String[] data = row.split(DELIMITER);
         if (data.length != 3) {
           throw new IllegalArgumentException("Invalid CSV file format, expected 3 columns but got " + data.length);
         }
@@ -48,15 +50,13 @@ public class SalesReport {
 
   private static Product createProduct(String[] values) {
     Product product = new Product();
-
-    product.setName(values[0].trim());
     try {
-      product.setPrice(Double.parseDouble(values[2]));
-      product.setSold(Integer.parseInt(values[1]));
+      product.setName(values[PRODUCT_NAME_COL].trim());
+      product.setSold(Integer.parseInt(values[SOLD_COL]));
+      product.setPrice(Double.parseDouble(values[PRICE_COL]));
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Invalid product price or sold value (it should be a number): " + values[1].trim());
-    }
-
+    } 
     return product;
   }
 

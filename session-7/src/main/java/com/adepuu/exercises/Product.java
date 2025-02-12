@@ -13,13 +13,10 @@ public class Product {
     this.sold = sold;
   }
 
-  public Product() {
-
-  }
+  public Product() {}
 
   public BigDecimal getSales() {
-    BigDecimal sales = BigDecimal.valueOf(price).multiply(BigDecimal.valueOf(sold));
-    return sales;
+    return BigDecimal.valueOf(price).multiply(BigDecimal.valueOf(sold));
   }
 
   public int getSold() {
